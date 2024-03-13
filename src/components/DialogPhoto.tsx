@@ -44,21 +44,11 @@ const DialogPhoto = ({ open, handleClose, photo, deletePhoto }: props) => {
     {
       comment: string;
       userName: string;
-      likeUp: boolean;
-      likeDown: boolean;
     }[]
   >([]);
 
   const getComments = async () => {
-    console.log(photo._id);
-
     const data = await getCommentsByPhotoId(photo._id);
-    console.log(data);
-
-    data.forEach((comment: any) => {
-      comment.likeUp = false;
-      comment.likeDown = false;
-    });
     setComments(data);
   };
   useEffect(() => {
@@ -67,9 +57,7 @@ const DialogPhoto = ({ open, handleClose, photo, deletePhoto }: props) => {
 
   const addComment = async () => {
     await postComment(photo._id, comment);
-
     setComment("");
-
     getComments();
   };
 
